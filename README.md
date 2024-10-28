@@ -10,7 +10,7 @@ A simple script to remove all git branches that have been merged into the main r
 ## Installation
 
   ```sh
-  deno install -g --allow-run -name git-gone jsr:@myty/git-gone
+  deno install -g --allow-run -n git-gone jsr:@myty/git-gone
   ```
 
 ## Usage
