@@ -1,6 +1,9 @@
 import { boolean, command, positional } from "@drizzle-team/brocli";
 import { GitRepository } from "../git-repository.ts";
 
+/**
+ * CLI command to prune all merged branches
+ */
 export default command({
   name: "prune",
   desc: "Prune all merged branches",

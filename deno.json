@@ -1,4 +1,7 @@
 {
+  "name": "@myty/git-gone",
+  "version": "0.1.0",
+  "exports": "./main.ts",
   "imports": {
     "@drizzle-team/brocli": "npm:@drizzle-team/brocli@^0.10.1",
     "@std/assert": "jsr:@std/assert@^1",

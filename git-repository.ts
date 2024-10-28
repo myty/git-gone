@@ -1,7 +1,13 @@
+/**
+ * A simple class to interact with a Git repository.
+ */
 export class GitRepository {
   constructor(private readonly cwd = Deno.cwd()) {
   }
 
+  /**
+   * Fetch and prune the repository: `git fetch --prune`
+   */
   async fetchPrune(): Promise<void> {
     const command = new Deno.Command("git", {
       cwd: this.cwd,
@@ -17,6 +23,9 @@ export class GitRepository {
     }
   }
 
+  /**
+   * Get a list of all local branches that have been merged and have a remote branch that no longer exists.
+   */
   async getMergedBranches(): Promise<string[]> {
     const command = new Deno.Command("git", {
       cwd: this.cwd,
@@ -46,6 +55,9 @@ export class GitRepository {
     ).map((branch) => branch.replace("[gone]", "").trim());
   }
 
+  /**
+   * Delete a branch: `git branch -D <branch>`
+   */
   async deleteBranch(branch: string): Promise<void> {
     const command = new Deno.Command("git", {
       cwd: this.cwd,
