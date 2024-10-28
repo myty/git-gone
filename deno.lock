@@ -5,6 +5,7 @@
     "jsr:@std/assert@^1.0.6": "1.0.6",
     "jsr:@std/async@^1.0.5": "1.0.6",
     "jsr:@std/data-structures@^1.0.4": "1.0.4",
+    "jsr:@std/expect@^1.0.6": "1.0.6",
     "jsr:@std/fs@^1.0.4": "1.0.4",
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "jsr:@std/path@^1.0.6": "1.0.6",
@@ -23,6 +24,13 @@
     },
     "@std/data-structures@1.0.4": {
       "integrity": "fa0e20c11eb9ba673417450915c750a0001405a784e2a4e0c3725031681684a0"
+    },
+    "@std/expect@1.0.6": {
+      "integrity": "dffba969ca5ea6d7c39338d4985c9af2bfa6e080c710cc2b77756dd7657c369c",
+      "dependencies": [
+        "jsr:@std/assert@^1.0.6",
+        "jsr:@std/internal"
+      ]
     },
     "@std/fs@1.0.4": {
       "integrity": "2907d32d8d1d9e540588fd5fe0ec21ee638134bd51df327ad4e443aaef07123c",
@@ -56,6 +64,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/assert@1",
+      "jsr:@std/expect@^1.0.6",
       "jsr:@std/testing@1",
       "npm:@drizzle-team/brocli@~0.10.1"
     ]
