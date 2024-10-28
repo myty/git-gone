@@ -26,7 +26,7 @@ jobs:
           key: ${{ hashFiles('deno.lock') }}
 
       - name: Run Tests
-        run: deno task test:ci
+        run: deno test
 
   lint:
     name: Lint
