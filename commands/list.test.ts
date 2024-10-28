@@ -1,12 +1,5 @@
 import { describe, it } from "@std/testing/bdd";
-import {
-  assertSpyCall,
-  assertSpyCalls,
-  returnsArg,
-  returnsNext,
-  spy,
-  stub,
-} from "@std/testing/mock";
+import { assertSpyCall, assertSpyCalls, stub } from "@std/testing/mock";
 import { expect } from "@std/expect";
 import createListCommand from "./list.ts";
 import type { GitRepository } from "../git-repository.ts";
