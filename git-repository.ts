@@ -72,7 +72,5 @@ export class GitRepository {
       console.error(`Failed to delete branch ${branch}: ${errorString}`);
       return;
     }
-
-    console.log(`Deleted branch ${branch}`);
   }
 }
