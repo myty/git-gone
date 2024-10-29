@@ -1,10 +1,10 @@
 import { boolean, command, positional } from "@drizzle-team/brocli";
-import { GitRepository } from "../git-repository.ts";
+import type { GitRepository } from "../git-repository.ts";
 
 /**
  * CLI command to prune all merged branches
  */
-export default function createListCommand(
+export default function buildPruneCommand(
   gitRepoFactory: (path?: string) => GitRepository,
 ) {
   return command({
@@ -21,7 +21,7 @@ export default function createListCommand(
       }
       const branches = await git.getMergedBranches();
       for (const branch of branches) {
-        git.deleteBranch(branch);
+        await git.deleteBranch(branch);
         console.log(`Deleted branch ${branch}`);
       }
     },

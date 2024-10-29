@@ -4,7 +4,7 @@ import type { GitRepository } from "../git-repository.ts";
 /**
  * CLI command to list all merged branches
  */
-export default function createListCommand(
+export default function buildListCommand(
   gitRepoFactory: (path?: string) => GitRepository,
 ) {
   return command({

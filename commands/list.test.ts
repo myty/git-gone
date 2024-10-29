@@ -1,7 +1,7 @@
 import { describe, it } from "@std/testing/bdd";
 import { assertSpyCall, assertSpyCalls, spy, stub } from "@std/testing/mock";
 import { expect } from "@std/expect";
-import createListCommand from "./list.ts";
+import buildListCommand from "./list.ts";
 import type { GitRepository } from "../git-repository.ts";
 
 describe("commands/list", () => {
@@ -60,5 +60,5 @@ function setupSut({
     getMergedBranches: () => Promise.resolve(branches),
   } as GitRepository;
 
-  return createListCommand(() => gitRepo);
+  return buildListCommand(() => gitRepo);
 }

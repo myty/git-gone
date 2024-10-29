@@ -4,10 +4,9 @@ import {
   assertSpyCalls,
   type Spy,
   spy,
-  type SpyLike,
 } from "@std/testing/mock";
 import { expect } from "@std/expect";
-import createPruneCommand from "./prune.ts";
+import buildPruneCommand from "./prune.ts";
 import type { GitRepository } from "../git-repository.ts";
 
 describe("commands/prune", () => {
@@ -23,7 +22,7 @@ describe("commands/prune", () => {
 
   describe("when executed", () => {
     it("removes all merged branches", async () => {
-      const deleteBranchSpy: Spy<unknown, [string], Promise<void>> = spy();
+      const deleteBranchSpy = spy((_branch: string) => Promise.resolve());
       const branches = ["branch1", "branch2"];
       const pruneCommand = setupSut({
         branches,
@@ -41,15 +40,16 @@ describe("commands/prune", () => {
 
     describe("when fetch is enabled", () => {
       it("fetches prune", async () => {
-        const fetchPruneSpy = spy();
-        const pruneCommand = setupSut({
+        const fetchPruneSpy = spy(() => Promise.resolve());
+        const listCommand = setupSut({
           fetchPruneSpy,
         });
-        await pruneCommand.handler?.({
+        await listCommand.handler?.({
           fetch: true,
           gitRepo: "",
         });
         assertSpyCalls(fetchPruneSpy, 1);
+        assertSpyCallAsync(fetchPruneSpy, 0, { args: [] });
       });
     });
   });
@@ -57,20 +57,20 @@ describe("commands/prune", () => {
 
 interface SetupSutOptions {
   branches?: string[];
-  fetchPruneSpy?: () => void;
-  deleteBranchSpy?: Spy<unknown, [string], Promise<void>>;
+  fetchPruneSpy?: Spy<unknown, [], Promise<void>>;
+  deleteBranchSpy?: Spy<unknown, [_branch: string], Promise<void>>;
 }
 
 function setupSut({
   branches = [],
-  fetchPruneSpy = () => {},
-  deleteBranchSpy = (branch: string) => Promise.resolve(),
+  fetchPruneSpy,
+  deleteBranchSpy,
 }: SetupSutOptions = {}) {
   const gitRepo = {
-    fetchPrune: fetchPruneSpy,
+    fetchPrune: fetchPruneSpy ?? (() => Promise.resolve()),
     getMergedBranches: () => Promise.resolve(branches),
-    deleteBranch: deleteBranchSpy,
+    deleteBranch: deleteBranchSpy ?? (() => Promise.resolve()),
   } as unknown as GitRepository;
 
-  return createPruneCommand(() => gitRepo);
+  return buildPruneCommand(() => gitRepo);
 }
